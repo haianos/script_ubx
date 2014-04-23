@@ -4,7 +4,7 @@
 SOURCE_PATH=/home/haianos/test_micro
 INSTALL_PATH=/home/haianos/test_micro/install
 
-pkgs=(kdl_types cartesiangen rml_trajgen)
+pkgs=(std_triggers kdl_types cartesiangen rml_trajgen)
 
 ## AutoEnv 
 export UBX_ROOT="$SOURCE_PATH/microblx"
