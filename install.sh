@@ -4,12 +4,12 @@
 SOURCE_PATH=/home/haianos/test_micro
 INSTALL_PATH=/home/haianos/test_micro/install
 
-pkgs=(std_triggers kdl_types cartesiangen rml_trajgen)
+pkgs=(std_triggers std_random kdl_types cartesiangen rml_trajgen)
 
 ## AutoEnv 
 export UBX_ROOT="$SOURCE_PATH/microblx"
 # source $UBX_ROOT/env.sh
-export UBX_MODULES="$INSTALL_PATH/lib/microblx"
+export UBX_MODULES="$INSTALL_PATH/lib/ubx"
 
 # groovy only for KDL, it under ros install, not syst dependency.
 export CMAKE_PREFIX_PATH=/opt/ros/groovy:/home/haianos/test_micro/install/share/microblx/cmake
