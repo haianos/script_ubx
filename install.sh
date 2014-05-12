@@ -12,7 +12,7 @@ export UBX_ROOT="$SOURCE_PATH/microblx"
 export UBX_MODULES="$INSTALL_PATH/lib/ubx"
 
 # groovy only for KDL, it under ros install, not syst dependency.
-export CMAKE_PREFIX_PATH=/opt/ros/groovy:/home/haianos/test_micro/install/share/microblx/cmake
+export CMAKE_PREFIX_PATH=/opt/ros/groovy:/home/haianos/test_micro/install/share/ubx/cmake
 
 # Comment me if I don't have/want Reflexxes
 export REFLEXXES_ROOT=/home/haianos/deleteme/ReflexxesTypeII
