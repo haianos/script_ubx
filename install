@@ -85,17 +85,14 @@ echo ".... Compiling Ubx..."
 CURR=`pwd`
 cd $UBX_ROOT
 source env.sh
-make
+make install
 
 echo "${cyan}... Installing Ubx Core Library${std}"
 echo "${cyan}... - lib"
-if [ ! -d "$UBX_INSTALL/lib/ubx" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx
-fi
+
 if [ ! -d "$UBX_INSTALL/include/ubx/core" ]; then
   mkdir -p $UBX_INSTALL/include/ubx/core
 fi
-cp $UBX_ROOT/src/libubx.so $UBX_INSTALL/lib/ubx/
 
 cp $UBX_ROOT/src/uthash_ffi.h $UBX_INSTALL/include/ubx/core
 cp $UBX_ROOT/src/ubx_types.h $UBX_INSTALL/include/ubx/core
@@ -111,75 +108,9 @@ if [ ! -d "$UBX_INSTALL/bin" ]; then
   mkdir -p $UBX_INSTALL/bin
 fi
 
-echo "target to install, re-compiling"
-make install 
-
-echo "${cyan}... Installing std_types${std}"
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_types/stdtypes" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_types/stdtypes
-fi
-cp $UBX_ROOT/std_types/stdtypes/stdtypes.so $UBX_INSTALL/lib/ubx/std_types/stdtypes
-
-echo "${cyan}... Installing std_blocks${std}"
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks
-fi
-
-# ptrig
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/ptrig" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/ptrig
-fi
-cp $UBX_ROOT/std_blocks/ptrig/ptrig.so $UBX_INSTALL/lib/ubx/std_blocks/ptrig
-
-# lfds_cyclic
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/lfds_buffers" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/lfds_buffers
-fi
-cp $UBX_ROOT/std_blocks/lfds_buffers/lfds_cyclic.so $UBX_INSTALL/lib/ubx/std_blocks/lfds_buffers
-cp $UBX_ROOT/std_blocks/lfds_buffers/lfds_cyclic_raw.so $UBX_INSTALL/lib/ubx/std_blocks/lfds_buffers
-
-# simple_fifo
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/simple_fifo" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/simple_fifo
-fi
-cp $UBX_ROOT/std_blocks/simple_fifo/simple_fifo.so $UBX_INSTALL/lib/ubx/std_blocks/simple_fifo
-
-# mqueue
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/mqueue" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/mqueue
-fi
-cp $UBX_ROOT/std_blocks/mqueue/mqueue.so $UBX_INSTALL/lib/ubx/std_blocks/mqueue
-cp $UBX_ROOT/std_blocks/mqueue/mqueue_raw.so $UBX_INSTALL/lib/ubx/std_blocks/mqueue
-
-# hexdump
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/hexdump" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/hexdump
-fi
-cp $UBX_ROOT/std_blocks/hexdump/hexdump.so $UBX_INSTALL/lib/ubx/std_blocks/hexdump
-
-# logging
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/logging" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/logging
-fi
-cp $UBX_ROOT/std_blocks/logging/file_logger.so $UBX_INSTALL/lib/ubx/std_blocks/logging
-
-# random
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/random" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/random
-fi
-cp $UBX_ROOT/std_blocks/random/random.so $UBX_INSTALL/lib/ubx/std_blocks/random
-
-# luablock
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/luablock" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/luablock
-fi
-cp $UBX_ROOT/std_blocks/luablock/luablock.so $UBX_INSTALL/lib/ubx/std_blocks/luablock
+echo "${cyan}... - common blocks and types${std}"
 
 # webif
-if [ ! -d "$UBX_INSTALL/lib/ubx/std_blocks/webif" ]; then
-  mkdir -p $UBX_INSTALL/lib/ubx/std_blocks/webif
-fi
-cp $UBX_ROOT/std_blocks/webif/webif.so $UBX_INSTALL/lib/ubx/std_blocks/webif
 cp $UBX_ROOT/std_blocks/webif/webif.lua $UBX_INSTALL/share/ubx/scripts
 
 
@@ -199,7 +130,7 @@ echo "export UBX_INSTALL=$UBX_INSTALL" >> env.sh
 echo 'export UBX_MODULES=$UBX_INSTALL/lib/ubx' >> env.sh
 echo 'export UBX_MODELS=$UBX_INSTALL/share/ubx/models' >> env.sh
 echo 'export UBX_METAMODELS=$UBX_INSTALL/share/ubx/metamodels' >> env.sh
-echo 'export LUA_PATH=";;;'$LUA_PATH';'$UBX_INSTALL'/share/ubx/scripts/?.lua"' >> env.sh
+echo 'export LUA_PATH=";;;$LUA_PATH;$UBX_INSTALL/share/ubx/scripts/?.lua"' >> env.sh
 echo 'export PATH=$PATH:$UBX_INSTALL/bin' >> env.sh
 
 echo 'Source file "env.sh" '
